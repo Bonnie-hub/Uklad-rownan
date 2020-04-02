@@ -17,19 +17,22 @@ class Macierz { //wierszowa
 	
 	//Macierz(Wektor W1, Wektor W2, Wektor W3);
 	Macierz(int Wiersz ,int Wymiar);
+	//Macierz(double **tab);
 	~Macierz();
 	
-	const Macierz & operator +(const Macierz M)const;
-	const Macierz & operator -(const Macierz M)const;
+	const Macierz operator +(const Macierz & M)const;
+	const Macierz operator -(const Macierz M)const;
 	const Macierz & operator *(const Macierz M)const;
 	
 	const Wektor & operator *(const Wektor M)const;
 	
-	const Macierz & transpozycja(const Macierz M)const;
+	const Macierz transpozycja(const Macierz M)const;
 	void transpozycja();
 	
 	double Wyznacznik() const;
 	//Gauss, Laplace, Sarrus
+
+	const Wektor Pobierz_Kolumne(int indeks) const;
 	
 	const Wektor & operator[] (int indeks) const; //odnoszenie się do poszczególnych pól
 	Wektor & operator[] (int indeks);

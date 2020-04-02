@@ -6,6 +6,15 @@ Wektor::Wektor(int n)
     dane = new double[Wymiar];
 }
 
+Wektor::Wektor(double *tab, int n)
+{
+    Wymiar = n;
+    for(int i=0; i<Wymiar; i++)
+    {
+        dane[i] = tab[i];
+    }
+}
+
 Wektor::Wektor()
 {
     Wymiar = 0;
@@ -16,15 +25,20 @@ Wektor::~Wektor()
 {
     delete[] dane;
 }
-
+/*
 double & Wektor::operator[] (int indeks)
 {
     return this->dane[indeks];
 }
-
+*/
 const double & Wektor::operator[] (int indeks) const
 {
-    return this->dane[indeks];
+    return dane[indeks];
+}
+
+double & Wektor::operator[] (int indeks)
+{
+    return dane[indeks];
 }
 
 double Wektor::dlugosc() const
@@ -38,28 +52,28 @@ double Wektor::dlugosc() const
     return sqrt(suma);
 }
 
-double & Wektor::operator *(Wektor W2)
+double Wektor::operator *(const Wektor & W2)const
 {
-    double suma = 0;
+    double skalar = 0.00;
     for (int i=0; i < Wymiar; i++)
     {
-        W2[i] += W2[i]*(*this)[i];
+        skalar += W2[i]*dane[i];
     }
-    return suma;
+    return skalar;
 }
 
-const Wektor & Wektor::operator +(const Wektor W2) const
+const Wektor Wektor::operator +(const Wektor & W2)const
 {
-    if(W2.Wymiar == this->Wymiar)
+    if(W2.Wymiar == Wymiar)
     {
-        Wektor dodaj(W2.Wymiar);
+        double *dodaj = new double[Wymiar];
 
         for(int i=0; i<Wymiar; i++)
         {
             dodaj[i] = 0;
-            dodaj[i] = W2[i] + (*this)[i]; 
+            dodaj[i] = W2[i] + dane[i]; 
         }
-    return dodaj;
+    return Wektor(dodaj, Wymiar);
     }
     else
     {
@@ -68,18 +82,18 @@ const Wektor & Wektor::operator +(const Wektor W2) const
     }
 }
 
-const Wektor & Wektor::operator -(const Wektor W2) const
+const Wektor Wektor::operator -(const Wektor & W2)const
 {
-    if(W2.Wymiar == this->Wymiar)
+    if(W2.Wymiar == Wymiar)
     {
-        Wektor odejmij(Wymiar);
+        double *odejmij = new double[Wymiar];
 
         for(int i=0; i<Wymiar; i++)
         {
             odejmij[i] = 0;
-            odejmij[i] = W2[i] - (*this)[i]; 
+            odejmij[i] = dane[i] - W2[i]; 
         }
-    return odejmij;
+    return Wektor(odejmij, Wymiar);
     }
     else
     {
@@ -88,7 +102,7 @@ const Wektor & Wektor::operator -(const Wektor W2) const
     }
 }
 
-int const & Wektor::Jaki_Wymiar()const
+int const & Wektor::Pobierz_Wymiar()const
 {
-    return this->Wymiar;
+    return Wymiar;
 }

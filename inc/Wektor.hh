@@ -13,20 +13,20 @@ class Wektor {
   	double *dane;
   	public:
 
-	Wektor(int Wymiar);
-	Wektor();
+	Wektor(int Wymiar); //konstruktor tworzący pustą tablicę z wymiarem podanym jako argument
+	Wektor(double *tab, int Wymiar); //konstruktor tworzy nowy wektor wartościach w tablicy i wymiarach podanych
+	Wektor(); //domyśnly wektor
 	~Wektor();
 
-	double dlugosc() const;
+	double dlugosc() const; //zwraca dlugość wektora jako liczbe
 
-	double & operator *(Wektor W2); //Do metod operatorów spróboj indeksów
-	const Wektor & operator +(const Wektor W2) const; //Czyli wpierw napisz TO operato[]
-	const Wektor & operator -(const Wektor W2) const;
+	double operator *(const Wektor & W2)const; //Iloczyn skalarny, zwraca double
+	const Wektor operator +(const Wektor & W2)const; //Zwraca wektor który jest sumą dwóch
+	const Wektor operator -(const Wektor & W2)const; //Zwraca wektor który jest różnicą dwóch
 	
-	const double & operator[] (int indeks) const; //odnoszenie się do poszczególnych pól
-	double & operator[] (int indeks); 
-
-	int const & Jaki_Wymiar() const;
+	const double & operator[] (int indeks)const; //odnoszenie się do poszczególnych pól
+	double & operator[] (int indeks);
+	int const & Pobierz_Wymiar() const; //zwraca rozmiar tablicy
 };
 //ostream operator << (ostream & strm, const Wektor & W);
 //istream operator >> (istream & strm, const Wektor & W);
