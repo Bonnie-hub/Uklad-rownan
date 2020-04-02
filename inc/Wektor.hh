@@ -1,29 +1,32 @@
 #ifndef WEKTOR_HH
 #define WEKTOR_HH
 
-#include "rozmiar.h"
+
+#include <cmath>
 #include <iostream>
 
 
-/*
- *  Tutaj trzeba opisac klase. Jakie pojecie modeluje ta klasa
- *  i jakie ma glowne cechy.
- */
+
 class Wektor {
-  double dane[WYMIAR];
-  public:
+
+	int Wymiar;
+  	double *dane;
+  	public:
+
+	Wektor(int Wymiar);
 	Wektor();
-	Wektro(double x, double y, double z); //kontruktor od kolekcji
-	double dlugosc(); const
-	double operator *(const Wektor &W2) const; 
-	const Wektor & operator +(const Wekror &W2) const;
-	const Wektor & operator -(const Wektor &W2) const;
+	~Wektor();
+
+	double dlugosc() const;
+
+	double & operator *(Wektor W2); //Do metod operatorów spróboj indeksów
+	const Wektor & operator +(const Wektor W2) const; //Czyli wpierw napisz TO operato[]
+	const Wektor & operator -(const Wektor W2) const;
 	
 	const double & operator[] (int indeks) const; //odnoszenie się do poszczególnych pól
-	double & operator[] (int indeks);
-  /*
-   *  Tutaj trzeba wstawic definicje odpowiednich metod publicznych
-   */    
+	double & operator[] (int indeks); 
+
+	int const & Jaki_Wymiar() const;
 };
 //ostream operator << (ostream & strm, const Wektor & W);
 //istream operator >> (istream & strm, const Wektor & W);

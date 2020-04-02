@@ -1,8 +1,7 @@
 #ifndef MACIERZ_HH
 #define MACIERZ_HH
 
-#include "rozmiar.h"
-#include <iostream>
+#include "Wektor.hh"
 
 
 /*
@@ -10,30 +9,30 @@
  *  i jakie ma glowne cechy.
  */
 class Macierz { //wierszowa
-	Wektor tab[Rozmiar];
-  /*
-   *  Tutaj trzeba wstawic definicje odpowiednich pol i metod prywatnych
-   */
+	int Wiersz;
+	Wektor *tab;
+	//Wektor *Tab_Wek;
+  
   public:
 	
-	Macierz();
-	Macierz(/*9 double*/);
-	Macierz(/*3 wektory*/);
+	//Macierz(Wektor W1, Wektor W2, Wektor W3);
+	Macierz(int Wiersz ,int Wymiar);
+	~Macierz();
 	
-	const Macierz & operator +(const Macierz & W)const;
-	const Macierz & operator -(const Macierz & W)const;
-	const Macierz & operator *(const Macierz & W)const;
+	const Macierz & operator +(const Macierz M)const;
+	const Macierz & operator -(const Macierz M)const;
+	const Macierz & operator *(const Macierz M)const;
 	
-	const Wektor & operator *(const Wektor & W)const;
+	const Wektor & operator *(const Wektor M)const;
 	
-	const Macierz & transpozycja(const Macierz & W)const;
+	const Macierz & transpozycja(const Macierz M)const;
 	void transpozycja();
 	
 	double Wyznacznik() const;
 	//Gauss, Laplace, Sarrus
 	
-	const double & operator[] (int indeks) const; //odnoszenie się do poszczególnych pól
-	double & operator[] (int indeks);
+	const Wektor & operator[] (int indeks) const; //odnoszenie się do poszczególnych pól
+	Wektor & operator[] (int indeks);
   /*
    *  Tutaj trzeba wstawic definicje odpowiednich metod publicznych
    */    
