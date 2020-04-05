@@ -12,7 +12,8 @@ Macierz::Macierz(Wektor W1, Wektor W2, Wektor W3)
 */
 Macierz::Macierz(int wiersz, int Wymiar)
 {
-    Wiersz = Wiersz;
+    Wiersz = wiersz;
+    Kolumna = Wymiar;
     tab = new Wektor[Wiersz];
         for(int i=0; i<Wiersz; i++)
         {
@@ -20,12 +21,29 @@ Macierz::Macierz(int wiersz, int Wymiar)
             tab[i] = Nowy;
         }
 }
-/*
-Macierz::Macierz(const Wektor *Wektor)
-{
 
+Macierz::Macierz(double **tablica, int const wiersz, int const kolumna)
+{
+    Wiersz = wiersz;
+    Kolumna = kolumna;
+    tab = new Wektor(Wiersz);
+    for (int k=0; k < Wiersz; k++)
+    {
+        Wektor Nowy(Kolumna);
+        tab[k] = Nowy;
+    }
+
+    for(int i=0; i<Wiersz; i++)
+    {
+        for(int j=0; j<Kolumna; j++)
+        {
+            (*this)[i][j] = tablica[i][j];
+            std::cout << "Nie naruszam " << i << j << std::endl;
+            std::cout << "Macierz " << (*this)[i][j] << std::endl;
+        }
+    }
 }
-*/
+
 Macierz::~Macierz()
 {
     delete[] tab;
@@ -87,9 +105,9 @@ const Macierz Macierz::operator -(const Macierz M)const
     
 }
 
-const Wektor Macierz::Pobierz_Kolumne(int indeks) const
+const Wektor Macierz::Pobierz_Wektor(int indeks) const
 {
-    double Pom[Wiersz];
+    double *Pom = new double[Wiersz];
     for(int i=0; i<Wiersz; i++)
     {
         Pom[i] = (*this)[i][indeks];
@@ -97,16 +115,26 @@ const Wektor Macierz::Pobierz_Kolumne(int indeks) const
     return Wektor(Pom, Wiersz);
 }
 
-void Macierz::transpozycja()
+const int Macierz::Pobierz_Wiersz() const
+{
+    return Wiersz;
+}
+
+const int Macierz::Pobierz_Kolumne() const
+{
+    return Kolumna;
+}
+
+void Macierz::transponowanie()
 {
     Macierz Pom = *this;
     for(int i=0; i<tab[i].Pobierz_Wymiar(); i++)
     {
-        (*this)[i] = Pom.Pobierz_Kolumne(i);
+        (*this)[i] = Pom.Pobierz_Wektor(i);
     }
 }
 
-const Macierz Macierz::transpozycja(const Macierz M)const
+const Macierz Macierz::transponowanie(const Macierz M)const
 {
     Macierz transpozycja(M[0].Pobierz_Wymiar(), Wiersz);
     for(int i=0; i<M[0].Pobierz_Wymiar(); i++)
@@ -117,4 +145,89 @@ const Macierz Macierz::transpozycja(const Macierz M)const
         }
     }
     return transpozycja;
+}
+
+double Macierz::Wyznacznik_Gaussa() const
+{
+    double det = 1.0;
+    Macierz M = *this;
+    if(Wiersz != Kolumna)
+    {
+        std::cerr << "Macierz nie kwadratowa" << std::endl;
+        exit(1);
+    }
+    else if(Wiersz == 1)
+    {
+        return tab[0][0];
+    }
+    else if(Wiersz == 2)
+    {
+        return (*this)[0][0] * (*this)[1][1] - (*this)[0][1] * (*this)[1][0];
+    }
+    else
+    {
+        for(int i=0; i<M.Wiersz; i++)//Przestawianie wierszy
+        {
+            if(fabs(M.tab[i][i]) < E)
+            {
+                int j=1;
+                for(int j; j<M.Wiersz; j++)
+                {
+                    if(fabs(M.tab[j][i]) > E)
+                    {
+                        //Wektor Pom(&tab[i].Pobierz_dane(), Kolumna);
+                        Wektor Pom = M.tab[i]; 
+                        M.tab[i] = M.tab[j];
+                        M.tab[j] = Pom;
+                        det = -det;
+                        break;
+                    }
+                }
+                if(j == Wiersz)
+                    {
+                        det = 0;
+                        return det;
+                    }
+            }
+            for(int j=i+1; j<M.Wiersz; j++)
+            {
+                if(fabs(M.tab[j][i]) < E)
+                    continue;
+                double wielokrotnosc = M.tab[j][i]/M.tab[i][i];
+                for(int k=i+1; j<M.Wiersz; j++)
+                M.tab[j][k] -= wielokrotnosc * M.tab[i][k];
+            }
+        }
+        for(int i=0; i<M.Wiersz; i++)
+            det *= M[i][i];
+        return det;
+    }
+
+}
+
+std::istream& operator >> (std::istream &Strm, Macierz &Mac)
+{
+    for(int i=0; i<Mac.Pobierz_Wiersz(); i++)
+    {
+        std::cout << "Wiersz: " << i+1 << std::endl;
+        for(int j=0; j<Mac[i].Pobierz_Wymiar(); j++)
+        {
+            Strm >> Mac[i][j];
+        }
+    }
+    return Strm;
+}
+
+std::ostream& operator << (std::ostream &Strm, const Macierz &Mac)
+{
+    for(int i=0; i<Mac.Pobierz_Wiersz(); i++)
+    {
+        Strm << "| ";
+        for(int j=0; j<Mac[i].Pobierz_Wymiar(); j++)
+        {
+            Strm << Mac[i][j] << ", ";
+        }
+        Strm << " |" << std::endl;
+    }
+    return Strm;
 }

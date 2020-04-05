@@ -9,15 +9,15 @@
  *  i jakie ma glowne cechy.
  */
 class Macierz { //wierszowa
-	int Wiersz;
+	int Wiersz, Kolumna;
 	Wektor *tab;
-	//Wektor *Tab_Wek;
+
   
   public:
 	
 	//Macierz(Wektor W1, Wektor W2, Wektor W3);
-	Macierz(int Wiersz ,int Wymiar);
-	//Macierz(double **tab);
+	Macierz(int Wiersz ,int Kolumna);
+	Macierz(double **tab, int const wiersz, int const kolumna);
 	~Macierz();
 	
 	const Macierz operator +(const Macierz & M)const;
@@ -26,14 +26,16 @@ class Macierz { //wierszowa
 	
 	const Wektor & operator *(const Wektor M)const;
 	
-	const Macierz transpozycja(const Macierz M)const;
-	void transpozycja();
+	const Macierz transponowanie(const Macierz M)const;
+	void transponowanie();
 	
-	double Wyznacznik() const;
+	double Wyznacznik_Gaussa() const;
 	//Gauss, Laplace, Sarrus
 
-	const Wektor Pobierz_Kolumne(int indeks) const;
-	
+	const Wektor Pobierz_Wektor(int indeks) const;
+	const int Pobierz_Wiersz() const;
+	const int Pobierz_Kolumne() const;
+
 	const Wektor & operator[] (int indeks) const; //odnoszenie się do poszczególnych pól
 	Wektor & operator[] (int indeks);
   /*

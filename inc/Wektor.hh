@@ -1,10 +1,10 @@
 #ifndef WEKTOR_HH
 #define WEKTOR_HH
+#define E 0.0000001  
 
 
 #include <cmath>
 #include <iostream>
-
 
 
 class Wektor {
@@ -14,8 +14,8 @@ class Wektor {
   	public:
 
 	Wektor(int Wymiar); //konstruktor tworzący pustą tablicę z wymiarem podanym jako argument
-	Wektor(double *tab, int Wymiar); //konstruktor tworzy nowy wektor wartościach w tablicy i wymiarach podanych
-	Wektor(); //domyśnly wektor
+	Wektor(double const *tab, int const Wymiar); //konstruktor tworzy nowy wektor wartościach w tablicy i wymiarach podanych
+	Wektor(); //domyślny wektor
 	~Wektor();
 
 	double dlugosc() const; //zwraca dlugość wektora jako liczbe
@@ -27,6 +27,7 @@ class Wektor {
 	const double & operator[] (int indeks)const; //odnoszenie się do poszczególnych pól
 	double & operator[] (int indeks);
 	int const & Pobierz_Wymiar() const; //zwraca rozmiar tablicy
+	double const & Pobierz_dane() const;
 };
 //ostream operator << (ostream & strm, const Wektor & W);
 //istream operator >> (istream & strm, const Wektor & W);

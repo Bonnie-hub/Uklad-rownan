@@ -4,11 +4,14 @@ Wektor::Wektor(int n)
 {
     Wymiar = n;
     dane = new double[Wymiar];
+    for(int i=0; i<Wymiar; i++)
+        dane[i] = 0.00;
 }
 
-Wektor::Wektor(double *tab, int n)
+Wektor::Wektor(double const *tab, int const n)
 {
     Wymiar = n;
+    dane = new double[Wymiar];
     for(int i=0; i<Wymiar; i++)
     {
         dane[i] = tab[i];
@@ -25,12 +28,7 @@ Wektor::~Wektor()
 {
     delete[] dane;
 }
-/*
-double & Wektor::operator[] (int indeks)
-{
-    return this->dane[indeks];
-}
-*/
+
 const double & Wektor::operator[] (int indeks) const
 {
     return dane[indeks];
@@ -105,4 +103,29 @@ const Wektor Wektor::operator -(const Wektor & W2)const
 int const & Wektor::Pobierz_Wymiar()const
 {
     return Wymiar;
+}
+
+double const & Wektor::Pobierz_dane() const
+{
+    return *dane;
+}
+
+std::istream& operator >> (std::istream &Strm, Wektor &Wek)
+{
+    for(int i=0; i<Wek.Pobierz_Wymiar(); i++)
+    {
+        Strm >> Wek[i];
+    }
+    return Strm;
+}
+
+std::ostream& operator << (std::ostream &Strm, const Wektor &Wek)
+{
+    Strm << "[";
+    for(int i=0; i<Wek.Pobierz_Wymiar(); i++)
+    {
+        Strm << Wek[i] << ", ";
+    }   
+    Strm << "]" << std::endl;
+    return Strm;
 }
