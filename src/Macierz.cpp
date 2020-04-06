@@ -49,7 +49,7 @@ Wektor & Macierz::operator[] (int indeks)
     return tab[indeks];
 }
 
-const Macierz & Macierz::operator +(const Macierz & M)const
+Macierz Macierz::operator +(const Macierz & M)const
 {
     if(Wiersz == M.Wiersz && 
     tab[0].Pobierz_Wymiar() == M[0].Pobierz_Wymiar())
@@ -72,7 +72,7 @@ const Macierz & Macierz::operator +(const Macierz & M)const
     }
 }
 
-const Macierz & Macierz::operator -(const Macierz & M)const
+Macierz Macierz::operator -(const Macierz & M)const
 {
     if(Wiersz == M.Wiersz && 
     tab[0].Pobierz_Wymiar() == M[0].Pobierz_Wymiar())
@@ -124,7 +124,7 @@ void Macierz::transponowanie()
     }
 }
 
-const Macierz & Macierz::transponowanie(const Macierz & M)const
+Macierz Macierz::transponowanie(const Macierz & M)const
 {
     Macierz transpozycja(M[0].Pobierz_Wymiar(), Wiersz);
     for(int i=0; i<M[0].Pobierz_Wymiar(); i++)
@@ -137,7 +137,7 @@ const Macierz & Macierz::transponowanie(const Macierz & M)const
     return transpozycja;
 }
 
-double Macierz::Wyznacznik_Gaussa() const
+double Macierz::Wyznacznik_Gaussa() const //jeszcze nie działa
 {
     double det = 1.0;
     Macierz M = *this;

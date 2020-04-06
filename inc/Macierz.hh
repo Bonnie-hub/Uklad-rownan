@@ -20,13 +20,13 @@ class Macierz { //wierszowa
 	Macierz(double **tab, int const wiersz, int const kolumna);
 	~Macierz();
 	
-	const Macierz & operator +(const Macierz & M)const;
-	const Macierz & operator -(const Macierz & M)const;
-	const Macierz & operator *(const Macierz & M)const;
+	Macierz operator +(const Macierz & M)const;
+	Macierz operator -(const Macierz & M)const;
+	Macierz operator *(const Macierz & M)const;
 	
 	const Wektor & operator *(const Wektor M)const;
 	
-	const Macierz & transponowanie(const Macierz & M)const;
+	Macierz transponowanie(const Macierz & M)const;
 	void transponowanie();
 	
 	double Wyznacznik_Gaussa() const;
