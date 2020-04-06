@@ -32,21 +32,11 @@ Macierz::Macierz(double **tablica, int const wiersz, int const kolumna)
         Wektor Nowy(Kolumna);
         tab[k] = Nowy;
     }
-
-    for(int i=0; i<Wiersz; i++)
-    {
-        for(int j=0; j<Kolumna; j++)
-        {
-            (*this)[i][j] = tablica[i][j];
-            std::cout << "Nie naruszam " << i << j << std::endl;
-            std::cout << "Macierz " << (*this)[i][j] << std::endl;
-        }
-    }
 }
 
 Macierz::~Macierz()
 {
-    delete[] tab;
+    //delete[] tab;
 }
 
 const Wektor & Macierz::operator[] (int indeks)const

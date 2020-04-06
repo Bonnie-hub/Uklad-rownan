@@ -21,13 +21,13 @@ class Wektor {
 	double dlugosc() const; //zwraca dlugość wektora jako liczbe
 
 	double operator *(const Wektor & W2)const; //Iloczyn skalarny, zwraca double
-	const Wektor operator +(const Wektor & W2)const; //Zwraca wektor który jest sumą dwóch
-	const Wektor operator -(const Wektor & W2)const; //Zwraca wektor który jest różnicą dwóch
+	Wektor operator +(const Wektor & W2)const; //Zwraca wektor który jest sumą dwóch
+	Wektor operator -(const Wektor & W2)const; //Zwraca wektor który jest różnicą dwóch
 	
 	const double & operator[] (int indeks)const; //odnoszenie się do poszczególnych pól
 	double & operator[] (int indeks);
-	int const & Pobierz_Wymiar() const; //zwraca rozmiar tablicy
-	double const & Pobierz_dane() const;
+	int Pobierz_Wymiar() const; //zwraca rozmiar tablicy
+	const double & Pobierz_dane() const;
 };
 //ostream operator << (ostream & strm, const Wektor & W);
 //istream operator >> (istream & strm, const Wektor & W);

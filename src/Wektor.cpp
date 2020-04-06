@@ -60,7 +60,7 @@ double Wektor::operator *(const Wektor & W2)const
     return skalar;
 }
 
-const Wektor Wektor::operator +(const Wektor & W2)const
+Wektor Wektor::operator +(const Wektor & W2)const
 {
     if(W2.Wymiar == Wymiar)
     {
@@ -80,7 +80,7 @@ const Wektor Wektor::operator +(const Wektor & W2)const
     }
 }
 
-const Wektor Wektor::operator -(const Wektor & W2)const
+Wektor Wektor::operator -(const Wektor & W2)const
 {
     if(W2.Wymiar == Wymiar)
     {
@@ -100,12 +100,12 @@ const Wektor Wektor::operator -(const Wektor & W2)const
     }
 }
 
-int const & Wektor::Pobierz_Wymiar()const
+int Wektor::Pobierz_Wymiar()const
 {
     return Wymiar;
 }
 
-double const & Wektor::Pobierz_dane() const
+const double & Wektor::Pobierz_dane() const
 {
     return *dane;
 }

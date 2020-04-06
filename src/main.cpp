@@ -28,10 +28,12 @@ for(int i=0; i<2; i++)
   Macierz Pom(tab, 2,2);
   cout << Pom << endl;
   
+Wektor W1(3);
+  cin >> W1;
+  cout << W1 << endl;
 
-
-  double det = Pom.Wyznacznik_Gaussa();
-  cout << "Wyznacznik " << det << endl;
+  //double det = Pom.Wyznacznik_Gaussa();
+  //cout << "Wyznacznik " << det << endl;
 
   
   //cin >> Pom;
