@@ -20,21 +20,21 @@ class Macierz { //wierszowa
 	Macierz(double **tab, int const wiersz, int const kolumna);
 	~Macierz();
 	
-	const Macierz operator +(const Macierz & M)const;
-	const Macierz operator -(const Macierz M)const;
-	const Macierz & operator *(const Macierz M)const;
+	const Macierz & operator +(const Macierz & M)const;
+	const Macierz & operator -(const Macierz & M)const;
+	const Macierz & operator *(const Macierz & M)const;
 	
 	const Wektor & operator *(const Wektor M)const;
 	
-	const Macierz transponowanie(const Macierz M)const;
+	const Macierz & transponowanie(const Macierz & M)const;
 	void transponowanie();
 	
 	double Wyznacznik_Gaussa() const;
 	//Gauss, Laplace, Sarrus
 
 	const Wektor Pobierz_Wektor(int indeks) const;
-	const int Pobierz_Wiersz() const;
-	const int Pobierz_Kolumne() const;
+	int Pobierz_Wiersz() const;
+	int Pobierz_Kolumne() const;
 
 	const Wektor & operator[] (int indeks) const; //odnoszenie się do poszczególnych pól
 	Wektor & operator[] (int indeks);

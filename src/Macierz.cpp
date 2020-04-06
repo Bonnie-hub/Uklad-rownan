@@ -49,7 +49,7 @@ Wektor & Macierz::operator[] (int indeks)
     return tab[indeks];
 }
 
-const Macierz Macierz::operator +(const Macierz & M)const
+const Macierz & Macierz::operator +(const Macierz & M)const
 {
     if(Wiersz == M.Wiersz && 
     tab[0].Pobierz_Wymiar() == M[0].Pobierz_Wymiar())
@@ -60,7 +60,7 @@ const Macierz Macierz::operator +(const Macierz & M)const
         {
             for(int j=0; j<M[0].Pobierz_Wymiar(); j++)
             {
-                dodaj[i][j] = (*this)[i][j] + M[i][j];
+                dodaj[i][j] = tab[i][j] + M[i][j];
             }
         }
         return dodaj;
@@ -72,7 +72,7 @@ const Macierz Macierz::operator +(const Macierz & M)const
     }
 }
 
-const Macierz Macierz::operator -(const Macierz M)const
+const Macierz & Macierz::operator -(const Macierz & M)const
 {
     if(Wiersz == M.Wiersz && 
     tab[0].Pobierz_Wymiar() == M[0].Pobierz_Wymiar())
@@ -82,7 +82,7 @@ const Macierz Macierz::operator -(const Macierz M)const
         {
             for(int j=0; j<M[0].Pobierz_Wymiar(); j++)
             {
-                odejmij[i][j] = (*this)[i][j] - M[i][j];
+                odejmij[i][j] = tab[i][j] - M[i][j];
             }
         }
         return odejmij;
@@ -100,17 +100,17 @@ const Wektor Macierz::Pobierz_Wektor(int indeks) const
     double *Pom = new double[Wiersz];
     for(int i=0; i<Wiersz; i++)
     {
-        Pom[i] = (*this)[i][indeks];
+        Pom[i] = tab[i][indeks];
     }
     return Wektor(Pom, Wiersz);
 }
 
-const int Macierz::Pobierz_Wiersz() const
+int Macierz::Pobierz_Wiersz() const
 {
     return Wiersz;
 }
 
-const int Macierz::Pobierz_Kolumne() const
+int Macierz::Pobierz_Kolumne() const
 {
     return Kolumna;
 }
@@ -120,11 +120,11 @@ void Macierz::transponowanie()
     Macierz Pom = *this;
     for(int i=0; i<tab[i].Pobierz_Wymiar(); i++)
     {
-        (*this)[i] = Pom.Pobierz_Wektor(i);
+        tab[i] = Pom.Pobierz_Wektor(i);
     }
 }
 
-const Macierz Macierz::transponowanie(const Macierz M)const
+const Macierz & Macierz::transponowanie(const Macierz & M)const
 {
     Macierz transpozycja(M[0].Pobierz_Wymiar(), Wiersz);
     for(int i=0; i<M[0].Pobierz_Wymiar(); i++)
@@ -152,7 +152,7 @@ double Macierz::Wyznacznik_Gaussa() const
     }
     else if(Wiersz == 2)
     {
-        return (*this)[0][0] * (*this)[1][1] - (*this)[0][1] * (*this)[1][0];
+        return tab[0][0] * tab[1][1] - tab[0][1] * tab[1][0];
     }
     else
     {
