@@ -17,12 +17,12 @@ using namespace std;
 
 int main()
 {
+
 UkladRownanLiniowych Rownanie;
 cin >> Rownanie;
 cout << "Równanie liniowe postaci: " << endl << Rownanie << endl;
 Wektor WektorWynik = Rownanie.Solve();
 cout << "Rozwiązanie: " << endl << WektorWynik << endl;
-//cout << Rownanie.GetMatrix() << endl;
 Wektor WektorBledu = Rownanie.GetMatrix()*WektorWynik - Rownanie.GetVector();
 cout << "Wektor błędu: " << endl << WektorBledu << endl;
 cout << "Długość wektora błędu: " << endl <<  WektorBledu.dlugosc() << endl;

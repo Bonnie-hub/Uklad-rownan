@@ -2,8 +2,10 @@
 
 UkladRownanLiniowych::UkladRownanLiniowych()
 {
-    macierz = Macierz();
-    wektor = Wektor();
+    Macierz M;
+    Wektor W;
+    macierz = M;
+    wektor = W;
 }
 
 UkladRownanLiniowych::UkladRownanLiniowych(const Macierz & M1, const Wektor & W1)
@@ -125,64 +127,3 @@ std::ostream& operator << ( std::ostream &Strm, UkladRownanLiniowych &UklRown)
     }
     return Strm; 
 }
-
-
-
-/*
-Wektor UkladRownanLiniowych::Solve()
-{
-    Macierz kopiaM = macierz;
-    Wektor kopiaW = wektor;
-    for(int k=0; k<kopiaM.Pobierz_Wiersz()-1; k++)
-    {
-        if(fabs(kopiaM[k][k]) < E) 
-        {
-            std::cerr << "Dzielenie przez zero" << std::endl;
-            exit(1);
-        }
-        for(int i=k+1; i<kopiaM.Pobierz_Wiersz(); i++)
-        kopiaM[i][k] /= kopiaM[k][k];
-
-        for(int i=k+1; i<kopiaM.Pobierz_Wiersz(); i++)
-        {
-        for(int j=k+1; j< kopiaM.Pobierz_Wiersz(); j++)
-            kopiaM[i][j] -= kopiaM[i][k] * kopiaM[k][j];
-        }
-    }
-    double stala = 0;
-    Wektor X;
-    X[0] = wektor[0];
-
-    for(int i=1; i<kopiaM.Pobierz_Wiersz(); i++)
-    {
-        for(int j=0; j<i; j++)
-        stala += kopiaM[i][j] * X[j];
-
-        X[i] = wektor[i] - stala;
-    }
-
-    if(fabs(kopiaM[kopiaM.Pobierz_Wiersz()-1][kopiaM.Pobierz_Wiersz()-1]) < E )
-    {
-        std::cerr << "" << std::endl;
-        exit(1);
-    }
-    X[kopiaM.Pobierz_Wiersz()-1] /=
-    kopiaM[kopiaM.Pobierz_Wiersz()-1][kopiaM.Pobierz_Wiersz()-1];
-
-    for(int i = kopiaM.Pobierz_Wiersz()-2; i >= 0; i--)
-    {
-        stala = 0;
-
-        for(int j=i+1; j<kopiaM.Pobierz_Wiersz(); j++)
-            stala += kopiaM[i][j] * X[j];
-
-        if(fabs(kopiaM[i][i]) < E)
-        {
-            std::cerr << "" << std::endl;
-            exit(1);
-        }
-        X[i] = (X[i] - stala) / kopiaM[i][i];
-    }
-    return X;
-}
-*/

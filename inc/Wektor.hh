@@ -10,7 +10,7 @@
 class Wektor {
 
 	static const int Wymiar = ROZMIAR;
-  	double dane[Wymiar];
+  	double dane[ROZMIAR];
   	public:
 
 	Wektor(); //konstruktor tworzący pustą tablicę z wymiarem podanym jako argument
@@ -26,30 +26,16 @@ class Wektor {
 	Wektor operator -(const Wektor & W2)const; //Zwraca wektor który jest różnicą dwóch
 	Wektor operator *(const double & stala)const; //Wektor razy liczba
 
-	const double & operator[] (unsigned int indeks)const; //odnoszenie się do poszczególnych pól
-	double & operator[] (unsigned int indeks);
+	const double & operator[] (int indeks)const; //odnoszenie się do poszczególnych pól
+	double & operator[] (int indeks);
 	int Pobierz_Wymiar() const; //zwraca rozmiar tablicy
-	const double & Pobierz_dane() const;
+	const double & Pobierz_dane() const; //Zwraca tablicę double
 };
 //ostream operator << (ostream & strm, const Wektor & W);
 //istream operator >> (istream & strm, const Wektor & W);
 
-/*
- * To przeciazenie trzeba opisac. Co ono robi. Jaki format
- * danych akceptuje. Jakie jest znaczenie parametrow itd.
- * Szczegoly dotyczace zalecen realizacji opisow mozna
- * znalezc w pliku:
- *    ~bk/edu/kpo/zalecenia.txt 
- */
 std::istream& operator >> (std::istream &Strm, Wektor &Wek);
 
-/*
- * To przeciazenie trzeba opisac. Co ono robi. Jaki format
- * danych akceptuje. Jakie jest znaczenie parametrow itd.
- * Szczegoly dotyczace zalecen realizacji opisow mozna
- * znalezc w pliku:
- *    ~bk/edu/kpo/zalecenia.txt 
- */
 std::ostream& operator << (std::ostream &Strm, const Wektor &Wek);
 
 #endif

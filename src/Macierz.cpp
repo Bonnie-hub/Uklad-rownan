@@ -2,8 +2,10 @@
 
 Macierz::Macierz()
 {
+    std::cout << "Jestem tutaj" << std::endl;
         for(int i=0; i<Wiersz; i++)
         {
+            std::cout << "Jestem tutaj " << i << std::endl;
             tab[i] = Wektor();
         }
 }
@@ -123,7 +125,7 @@ Wektor Macierz::operator *(const Wektor W)const
     
 }
 
-const Wektor Macierz::Pobierz_Wektor(unsigned int indeks) const
+const Wektor Macierz::Pobierz_Wektor(int indeks) const
 {
     if(indeks <= tab[0].Pobierz_Wymiar()){
         double *Pom = new double[Wiersz];

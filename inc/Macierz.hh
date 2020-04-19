@@ -10,7 +10,7 @@
  */
 class Macierz { //wierszowa
 	static const int Wiersz = ROZMIAR;
-	Wektor tab[Wiersz];
+	Wektor tab[ROZMIAR];
 
   
   public:
@@ -33,16 +33,16 @@ class Macierz { //wierszowa
 	double Wyznacznik_Gaussa() const;
 	//Gauss, Laplace, Sarrus
 
-	const Wektor Pobierz_Wektor(unsigned int indeks) const;
-	int Pobierz_Wiersz() const;
+	const Wektor Pobierz_Wektor(int indeks) const;
+	int Pobierz_Wiersz() const; //Pobranie rozmiaru macierzy
 
 	const Wektor & operator[] (int indeks) const; //odnoszenie się do poszczególnych pól
 	Wektor & operator[] (int indeks);   
 };
 
-std::istream& operator >> (std::istream &Strm, Macierz &Mac);
+std::istream& operator >> (std::istream &Strm, Macierz &Mac); //Wpisywanie
 
-std::ostream& operator << (std::ostream &Strm, const Macierz &Mac);
+std::ostream& operator << (std::ostream &Strm, const Macierz &Mac); //Odczyt
 
 
 #endif

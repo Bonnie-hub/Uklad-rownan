@@ -17,7 +17,7 @@ Wektor::Wektor(double const *tab)
 Wektor::~Wektor()
 {}
 
-const double & Wektor::operator[] (unsigned int indeks) const
+const double & Wektor::operator[] (int indeks) const
 {
     if(indeks <= Wymiar)
         return dane[indeks];
@@ -28,7 +28,7 @@ const double & Wektor::operator[] (unsigned int indeks) const
     }
 }
 
-double & Wektor::operator[] (unsigned int indeks)
+double & Wektor::operator[] (int indeks)
 {
     if(indeks <= Wymiar)
         return dane[indeks];
