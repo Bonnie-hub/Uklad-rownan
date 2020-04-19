@@ -2,20 +2,23 @@
 #define UKLADROWNANLINIOWYCH_HH
 
 #include <iostream>
-
+#include "Macierz.hh"
 
 /*
  *  Tutaj trzeba opisac klase. Jakie pojecie modeluje ta klasa
  *  i jakie ma glowne cechy.
  */
 class UkladRownanLiniowych {
-  /*
-   *  Tutaj trzeba wstawic definicje odpowiednich pol i metod prywatnych
-   */
+  Macierz macierz;
+  Wektor wektor;
   public:
-  /*
-   *  Tutaj trzeba wstawic definicje odpowiednich metod publicznych
-   */    
+  UkladRownanLiniowych ();
+  UkladRownanLiniowych (const Macierz & M1, const Wektor & W1);
+  ~UkladRownanLiniowych ();
+
+  Wektor & GetVector();
+  Macierz & GetMatrix();
+  Wektor Solve();
 };
 
 
@@ -35,8 +38,8 @@ std::istream& operator >> (std::istream &Strm, UkladRownanLiniowych &UklRown);
  * znalezc w pliku:
  *    ~bk/edu/kpo/zalecenia.txt 
  */
-std::ostream& operator << ( std::ostream                  &Strm, 
-                            const UkladRownanLiniowych    &UklRown
+std::ostream& operator << ( std::ostream                  &Strm,
+                            UkladRownanLiniowych    &UklRown
                           );
 
 

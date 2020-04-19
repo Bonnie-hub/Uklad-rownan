@@ -9,57 +9,39 @@
  *  i jakie ma glowne cechy.
  */
 class Macierz { //wierszowa
-	int Wiersz, Kolumna;
-	Wektor *tab;
+	static const int Wiersz = ROZMIAR;
+	Wektor tab[Wiersz];
 
   
   public:
 	
-	//Macierz(Wektor W1, Wektor W2, Wektor W3);
-	Macierz(int Wiersz ,int Kolumna);
-	Macierz(double **tab, int const wiersz, int const kolumna);
+	Macierz();
+	Macierz(Wektor *tab);
 	~Macierz();
 	
-	Macierz operator +(const Macierz & M)const;
-	Macierz operator -(const Macierz & M)const;
-	Macierz operator *(const Macierz & M)const;
+	Macierz operator +(const Macierz & M)const; //Dodawanie macierzy
+	Macierz operator -(const Macierz & M)const; //Odejmowanie macierzy
+	Macierz operator *(const Macierz & M)const; //Mnożenie macierzy
 	
-	const Wektor & operator *(const Wektor M)const;
+	Wektor operator *(const Wektor W)const; //Mnożenie macierzy prze wektor
 	
-	Macierz transponowanie(const Macierz & M)const;
+	Macierz transponowanie()const;
 	void transponowanie();
+	Macierz MacierzTrojk();
+	//void inverse();
 	
 	double Wyznacznik_Gaussa() const;
 	//Gauss, Laplace, Sarrus
 
-	const Wektor Pobierz_Wektor(int indeks) const;
+	const Wektor Pobierz_Wektor(unsigned int indeks) const;
 	int Pobierz_Wiersz() const;
-	int Pobierz_Kolumne() const;
 
 	const Wektor & operator[] (int indeks) const; //odnoszenie się do poszczególnych pól
-	Wektor & operator[] (int indeks);
-  /*
-   *  Tutaj trzeba wstawic definicje odpowiednich metod publicznych
-   */    
+	Wektor & operator[] (int indeks);   
 };
 
-
-/*
- * To przeciazenie trzeba opisac. Co ono robi. Jaki format
- * danych akceptuje. Jakie jest znaczenie parametrow itd.
- * Szczegoly dotyczace zalecen realizacji opisow mozna
- * znalezc w pliku:
- *    ~bk/edu/kpo/zalecenia.txt 
- */
 std::istream& operator >> (std::istream &Strm, Macierz &Mac);
 
-/*
- * To przeciazenie trzeba opisac. Co ono robi. Jaki format
- * danych akceptuje. Jakie jest znaczenie parametrow itd.
- * Szczegoly dotyczace zalecen realizacji opisow mozna
- * znalezc w pliku:
- *    ~bk/edu/kpo/zalecenia.txt 
- */
 std::ostream& operator << (std::ostream &Strm, const Macierz &Mac);
 
 

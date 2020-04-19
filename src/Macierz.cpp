@@ -1,36 +1,18 @@
 #include "Macierz.hh"
 
-/*
-Macierz::Macierz(Wektor W1, Wektor W2, Wektor W3)
+Macierz::Macierz()
 {
-    tab = new Wektor []
-   if(W1.Pobierz_Wymiar == W2.Pobierz_Wymiar && W1.Pobierz_Wymiar == W3.Pobierz_Wymiar)
-   tab[0] = &W1;
-   tab[1] = &W2;
-   tab[2] = &W3;
-}//troszkę zabawny konstruktor
-*/
-Macierz::Macierz(int wiersz, int Wymiar)
-{
-    Wiersz = wiersz;
-    Kolumna = Wymiar;
-    tab = new Wektor[Wiersz];
         for(int i=0; i<Wiersz; i++)
         {
-            Wektor Nowy(Wymiar);
-            tab[i] = Nowy;
+            tab[i] = Wektor();
         }
 }
 
-Macierz::Macierz(double **tablica, int const wiersz, int const kolumna)
+Macierz::Macierz(Wektor *Nowy)
 {
-    Wiersz = wiersz;
-    Kolumna = kolumna;
-    tab = new Wektor(Wiersz);
-    for (int k=0; k < Wiersz; k++)
+    for(int k=0; k < Wiersz; k++)
     {
-        Wektor Nowy(Kolumna);
-        tab[k] = Nowy;
+        tab[k] = Nowy[k];
     }
 }
 
@@ -41,12 +23,25 @@ Macierz::~Macierz()
 
 const Wektor & Macierz::operator[] (int indeks)const
 {
-    return tab[indeks];
+    if(indeks <= Wiersz)
+        return tab[indeks];
+    else
+    {
+        std::cerr << "Indeks wykracza poza tablicę" << std::endl;
+        exit(1);
+    }
+    
 }
 
 Wektor & Macierz::operator[] (int indeks)
 {
-    return tab[indeks];
+    if(indeks <= Wiersz)
+        return tab[indeks];
+    else
+    {
+        std::cerr << "Indeks wykracza poza tablicę" << std::endl;
+        exit(1);
+    }
 }
 
 Macierz Macierz::operator +(const Macierz & M)const
@@ -55,13 +50,10 @@ Macierz Macierz::operator +(const Macierz & M)const
     tab[0].Pobierz_Wymiar() == M[0].Pobierz_Wymiar())
     {
 
-        Macierz dodaj(Wiersz, M[0].Pobierz_Wymiar());
+        Macierz dodaj;
         for(int i=0; i<Wiersz; i++)
         {
-            for(int j=0; j<M[0].Pobierz_Wymiar(); j++)
-            {
-                dodaj[i][j] = tab[i][j] + M[i][j];
-            }
+            dodaj[i] = tab[i] + M[i];    
         }
         return dodaj;
     }
@@ -77,13 +69,10 @@ Macierz Macierz::operator -(const Macierz & M)const
     if(Wiersz == M.Wiersz && 
     tab[0].Pobierz_Wymiar() == M[0].Pobierz_Wymiar())
     {
-        Macierz odejmij(Wiersz, M[0].Pobierz_Wymiar());
+        Macierz odejmij;
         for(int i=0; i<Wiersz; i++)
         {
-            for(int j=0; j<M[0].Pobierz_Wymiar(); j++)
-            {
-                odejmij[i][j] = tab[i][j] - M[i][j];
-            }
+            odejmij[i] = tab[i] - M[i];
         }
         return odejmij;
     }
@@ -92,27 +81,68 @@ Macierz Macierz::operator -(const Macierz & M)const
         std::cout << "Macierze różnych rozmiarów" << std::endl;
         exit(1);
     }
+}
+
+Macierz Macierz::operator *(const Macierz & M)const
+{
+    Macierz mnozenie;
+    if(tab[0].Pobierz_Wymiar() == M.Wiersz)
+    {
+        for(int i=0; i<M.Wiersz; i++)
+        {
+            for(int j=0; j<M[0].Pobierz_Wymiar(); j++)
+            {
+                mnozenie[i][j] = tab[i] * M.Pobierz_Wektor(j);
+            }
+        }
+        return mnozenie;
+    }
+    else
+    {
+        std::cerr << "Niezgodne wymiary macierzy" << std::endl;
+        exit(1);
+    }
+}
+
+Wektor Macierz::operator *(const Wektor W)const
+{
+    if(Wiersz == W.Pobierz_Wymiar())
+    {
+        Wektor mnozenie;
+        for(int i=0; i<Wiersz; i++)
+        {
+            mnozenie[i] = tab[i]*W;
+        }
+        return mnozenie;
+    }
+    else
+    {
+        std::cerr << "Nieprawidłowe rozmiary" << std::endl;
+        exit(1);
+    }
     
 }
 
-const Wektor Macierz::Pobierz_Wektor(int indeks) const
+const Wektor Macierz::Pobierz_Wektor(unsigned int indeks) const
 {
-    double *Pom = new double[Wiersz];
-    for(int i=0; i<Wiersz; i++)
-    {
-        Pom[i] = tab[i][indeks];
+    if(indeks <= tab[0].Pobierz_Wymiar()){
+        double *Pom = new double[Wiersz];
+        for(int i=0; i<Wiersz; i++)
+        {
+            Pom[i] = tab[i][indeks];
+        }
+        return Wektor(Pom);
     }
-    return Wektor(Pom, Wiersz);
+    else
+    {
+        std::cerr << "Indeks wykracza poza tablicę" << std::endl;
+        exit(1);
+    }
 }
 
 int Macierz::Pobierz_Wiersz() const
 {
     return Wiersz;
-}
-
-int Macierz::Pobierz_Kolumne() const
-{
-    return Kolumna;
 }
 
 void Macierz::transponowanie()
@@ -124,24 +154,58 @@ void Macierz::transponowanie()
     }
 }
 
-Macierz Macierz::transponowanie(const Macierz & M)const
+Macierz Macierz::transponowanie()const
 {
-    Macierz transpozycja(M[0].Pobierz_Wymiar(), Wiersz);
-    for(int i=0; i<M[0].Pobierz_Wymiar(); i++)
+    Macierz transpozycja;
+    for(int i=0; i<tab[0].Pobierz_Wymiar(); i++)
     {
-        for(int j=0; j<Wiersz; j++)
-        {
-            transpozycja[j][i] = M[i][j];
-        }
+        transpozycja[i] = (*this).Pobierz_Wektor(i);
     }
     return transpozycja;
 }
 
-double Macierz::Wyznacznik_Gaussa() const //jeszcze nie działa
+Macierz Macierz::MacierzTrojk()
+{
+    Macierz kopia = *this;
+    for(int i=0; i<Wiersz; i++)//Przestawianie wierszy
+        {
+            if(fabs(kopia.tab[i][i]) < E)
+            {
+                int j;
+                for(j=i; j<Wiersz; j++)
+                {
+
+                    if(fabs(kopia.tab[j][i]) > E)
+                    {
+                        Wektor Pom = kopia.tab[i]; 
+                        kopia.tab[i] = kopia.tab[j];
+                        kopia.tab[j] = Pom;
+                        break;
+                    }
+                }
+                if(j == Wiersz)
+                    {
+                        std::cerr << "Wyznacznik macierzy rowny zero" << std::endl;
+                        exit(1);
+                    }
+            }
+            for(int j=i+1; j<Wiersz; j++)
+            {
+                if(fabs(kopia.tab[j][i]) < E)
+                    continue;
+                double wielokrotnosc = kopia.tab[j][i]/kopia.tab[i][i];
+                kopia.tab[j] -= kopia.tab[i] * wielokrotnosc;
+                
+            }
+        }
+    return kopia;
+}
+
+double Macierz::Wyznacznik_Gaussa() const
 {
     double det = 1.0;
     Macierz M = *this;
-    if(Wiersz != Kolumna)
+    if(Wiersz != tab[0].Pobierz_Wymiar())
     {
         std::cerr << "Macierz nie kwadratowa" << std::endl;
         exit(1);
@@ -160,12 +224,12 @@ double Macierz::Wyznacznik_Gaussa() const //jeszcze nie działa
         {
             if(fabs(M.tab[i][i]) < E)
             {
-                int j=1;
-                for(int j; j<M.Wiersz; j++)
+                int j;
+                for(j=i; j<M.Wiersz; j++)
                 {
+
                     if(fabs(M.tab[j][i]) > E)
                     {
-                        //Wektor Pom(&tab[i].Pobierz_dane(), Kolumna);
                         Wektor Pom = M.tab[i]; 
                         M.tab[i] = M.tab[j];
                         M.tab[j] = Pom;
@@ -184,8 +248,8 @@ double Macierz::Wyznacznik_Gaussa() const //jeszcze nie działa
                 if(fabs(M.tab[j][i]) < E)
                     continue;
                 double wielokrotnosc = M.tab[j][i]/M.tab[i][i];
-                for(int k=i+1; j<M.Wiersz; j++)
-                M.tab[j][k] -= wielokrotnosc * M.tab[i][k];
+                M.tab[j] -= M.tab[i] * wielokrotnosc;
+                
             }
         }
         for(int i=0; i<M.Wiersz; i++)
@@ -213,9 +277,12 @@ std::ostream& operator << (std::ostream &Strm, const Macierz &Mac)
     for(int i=0; i<Mac.Pobierz_Wiersz(); i++)
     {
         Strm << "| ";
-        for(int j=0; j<Mac[i].Pobierz_Wymiar(); j++)
+        for(int j=0; j<Mac[0].Pobierz_Wymiar(); j++)
         {
+            if(j < Mac[0].Pobierz_Wymiar() - 1)
             Strm << Mac[i][j] << ", ";
+            else
+            Strm << Mac[i][j];
         }
         Strm << " |" << std::endl;
     }

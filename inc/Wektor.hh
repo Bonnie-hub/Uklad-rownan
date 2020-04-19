@@ -1,31 +1,33 @@
 #ifndef WEKTOR_HH
 #define WEKTOR_HH
 #define E 0.0000001  
-
+#define ROZMIAR 3
 
 #include <cmath>
 #include <iostream>
-
+#include <iomanip>
 
 class Wektor {
 
-	int Wymiar;
-  	double *dane;
+	static const int Wymiar = ROZMIAR;
+  	double dane[Wymiar];
   	public:
 
-	Wektor(int Wymiar); //konstruktor tworzący pustą tablicę z wymiarem podanym jako argument
-	Wektor(double const *tab, int const Wymiar); //konstruktor tworzy nowy wektor wartościach w tablicy i wymiarach podanych
-	Wektor(); //domyślny wektor
+	Wektor(); //konstruktor tworzący pustą tablicę z wymiarem podanym jako argument
+	Wektor(double const *tab); //konstruktor tworzy nowy wektor wartościach w tablicy i wymiarach podanych
 	~Wektor();
 
 	double dlugosc() const; //zwraca dlugość wektora jako liczbe
 
 	double operator *(const Wektor & W2)const; //Iloczyn skalarny, zwraca double
+	Wektor operator +=(const Wektor & W2); //Dodanie wektora do wektora
 	Wektor operator +(const Wektor & W2)const; //Zwraca wektor który jest sumą dwóch
+	Wektor operator -=(const Wektor & W2); //Odjęcie wektora od wektora
 	Wektor operator -(const Wektor & W2)const; //Zwraca wektor który jest różnicą dwóch
-	
-	const double & operator[] (int indeks)const; //odnoszenie się do poszczególnych pól
-	double & operator[] (int indeks);
+	Wektor operator *(const double & stala)const; //Wektor razy liczba
+
+	const double & operator[] (unsigned int indeks)const; //odnoszenie się do poszczególnych pól
+	double & operator[] (unsigned int indeks);
 	int Pobierz_Wymiar() const; //zwraca rozmiar tablicy
 	const double & Pobierz_dane() const;
 };
