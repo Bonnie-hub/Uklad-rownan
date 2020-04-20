@@ -28,7 +28,7 @@ Macierz & UkladRownanLiniowych::GetMatrix()
     return macierz;
 }
 
-Wektor UkladRownanLiniowych::Solve()
+Wektor UkladRownanLiniowych::Solve() const
 {
     Macierz kopiaM = macierz;
     Wektor kopiaW = wektor;

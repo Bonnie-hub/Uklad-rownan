@@ -31,8 +31,6 @@ class Wektor {
 	int Pobierz_Wymiar() const; //zwraca rozmiar tablicy
 	const double & Pobierz_dane() const; //Zwraca tablicę double
 };
-//ostream operator << (ostream & strm, const Wektor & W);
-//istream operator >> (istream & strm, const Wektor & W);
 
 std::istream& operator >> (std::istream &Strm, Wektor &Wek);
 

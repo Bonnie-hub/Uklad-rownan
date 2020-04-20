@@ -2,12 +2,10 @@
 
 Macierz::Macierz()
 {
-    std::cout << "Jestem tutaj" << std::endl;
-        for(int i=0; i<Wiersz; i++)
-        {
-            std::cout << "Jestem tutaj " << i << std::endl;
-            tab[i] = Wektor();
-        }
+    for(int i=0; i<Wiersz; i++)
+    {
+        tab[i] = Wektor();
+    }
 }
 
 Macierz::Macierz(Wektor *Nowy)
@@ -265,7 +263,7 @@ std::istream& operator >> (std::istream &Strm, Macierz &Mac)
 {
     for(int i=0; i<Mac.Pobierz_Wiersz(); i++)
     {
-        std::cout << "Wiersz: " << i+1 << std::endl;
+        //std::cout << "Wiersz: " << i+1 << std::endl;
         for(int j=0; j<Mac[i].Pobierz_Wymiar(); j++)
         {
             Strm >> Mac[i][j];

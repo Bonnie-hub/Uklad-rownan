@@ -4,10 +4,6 @@
 #include "Wektor.hh"
 
 
-/*
- *  Tutaj trzeba opisac klase. Jakie pojecie modeluje ta klasa
- *  i jakie ma glowne cechy.
- */
 class Macierz { //wierszowa
 	static const int Wiersz = ROZMIAR;
 	Wektor tab[ROZMIAR];

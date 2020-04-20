@@ -18,26 +18,12 @@ class UkladRownanLiniowych {
 
   Wektor & GetVector();
   Macierz & GetMatrix();
-  Wektor Solve();
+  Wektor Solve() const;
 };
 
-
-/*
- * To przeciazenie trzeba opisac. Co ono robi. Jaki format
- * danych akceptuje. Jakie jest znaczenie parametrow itd.
- * Szczegoly dotyczace zalecen realizacji opisow mozna
- * znalezc w pliku:
- *    ~bk/edu/kpo/zalecenia.txt 
- */
 std::istream& operator >> (std::istream &Strm, UkladRownanLiniowych &UklRown);
 
-/*
- * To przeciazenie trzeba opisac. Co ono robi. Jaki format
- * danych akceptuje. Jakie jest znaczenie parametrow itd.
- * Szczegoly dotyczace zalecen realizacji opisow mozna
- * znalezc w pliku:
- *    ~bk/edu/kpo/zalecenia.txt 
- */
+
 std::ostream& operator << ( std::ostream                  &Strm,
                             UkladRownanLiniowych    &UklRown
                           );
